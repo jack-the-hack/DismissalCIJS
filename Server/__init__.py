@@ -16,27 +16,34 @@ Copyright (C) 2022  Donnie Jack Baldyga
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
+
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
-import os
-import time
 import os
 Name = "No one yet!"
 IDLST = []
 App = Flask(__name__)
-App.secret_key=os.environ['KEY']
-DataBase = sqlite3.connect('Students.db')
+App.secret_key = os.environ['KEY']
+DataBase = sqlite3.connect('../Database/Students.db')
 cur = DataBase.cursor()
 print(os.system("ls"))
 user = {"username": "cjs333", "password": "cijs321studentgobye"}
 
+
+def Addstudent(ID: int, Name: str, Teacher: str, Grade: int, IsMe: bool):
+    cur.execute(
+        f"INSERT INTO Students VALUES ({ID},{Name},{Teacher},{Grade},{IsMe})")
+
+
 def dismiss():
-    pass
+    ID=IDLST[-1]
+    cur.execute(f"SELECT * FROM Students GROUP BY ID HAVING ID={ID}")
+    Fulldata=cur.fetchall()
+    
 
 
 @App.route("/Teacher/")
 def Teacher():
-    r = 0
     return render_template("Teacher.html", Name=Name)
 
 
@@ -44,32 +51,38 @@ def Teacher():
 def Scanner():
     if request.method == "POST":
         ID = request.form['ID']
-        IDLST.append((time.time(), ID))
+        IDLST.append(ID)
         print(IDLST)
         return render_template("Scanner.html")
     else:
         return render_template("Scanner.html")
-      
-#Step – 4 (creating route for login)
-@App.route('/admin', methods = ['POST', 'GET'])
+
+# Step – 4 (creating route for login)
+
+
+@App.route('/admin', methods=['POST', 'GET'])
 def login():
     if(request.method == 'POST'):
         username = request.form.get('username')
-        password = request.form.get('password')     
+        password = request.form.get('password')
         if username == user['username'] and password == user['password']:
-            
+
             session['user'] = username
             return redirect('/lmrwqqrthhs')
 
-        return "<h1>Wrong username or password</h1>"    #if the username or password does not matches 
+        # if the username or password does not matches
+        return "<h1>Wrong username or password</h1>"
 
     return render_template("login.html")
+
+
 @App.route('/lmrwqqrthhs')
 def dashboard():
     if('user' in session and session['user'] == user['username']):
         return render_template("dashboard.html")
-    #here we are checking whether the user is logged in or not
+    # here we are checking whether the user is logged in or not
+    else:
+        return '<h1>You are not logged in.</h1>'
 
-    return '<h1>You are not logged in.</h1>'  #if the user is not in the session
 
 App.run(host='0.0.0.0')
