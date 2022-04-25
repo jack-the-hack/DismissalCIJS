@@ -1,0 +1,32 @@
+<DOCTYPE HTML>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <script src="../static/libs.js"></script>
+  </head>
+  <body>
+    <p>If teacher selector is missing, please reload.</p>
+    <h1>Add Student:</h1>
+    <form method="POST" action="/newstudent/">
+      <p>Name:</p><input type="text" name="name" id="name" required>
+      <p>Teacher</p><div id="Teacher"></div>
+      <p>Grade:</p><input type="number" id="grade" name="grade" required>
+    </form>
+    <h1>Add Teacher:</h1>
+    <form method="POST" action="/newteacher/">
+      <p>Teacher:</p><input type="text" id="Teacher" name="Teacher">
+      <input type="submit">
+    </form>
+    <h1>Switch Teacher</h1>
+    <form method="POST" action="/swtchteacher/">
+      <p>New Teacher:</p><input type="text" id="NewTeacher" name="NewTeacher">
+      <p>Existing Teacher:</p><div id="Teacher1"></div>
+      
+    </form>
+    <script>var teacher=document.getElementById("Teacher");
+      var teacher1=document.getElementById("Teacher1");
+      drpdwn=he.decode("{{dropdown}}");
+      teacher.innerHTML=drpdwn
+      teacher1.innerHTML=drpdwn
+    </script>
+  </body>

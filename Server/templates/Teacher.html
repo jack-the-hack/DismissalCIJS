@@ -1,18 +1,31 @@
 <head>
-  <meta http-equiv="refresh" content="1">
-  <script>
-    
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dismissal</title>
+  <div id="rload"></div>
+  <script>var name="{{Name}}";var oldname1="{{oldName1}}";var oldname2="{{oldName2}}";var oldname3="{{oldName3}}";var dropdown="{{dropdown}}"</script>
+  <script src="../static/libs.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>body {background-color: lightblue;}
     .currname {
   display: flex;
-  justify-content: center; /* align horizontal */
-  align-items: center; /* align vertical */
-  border: 2px solid grey;
-  min-height: 200px;
-  padding: 20px;
-}</style>
+  justify-content: center; /* align horizontal *//* align vertical */
+}
+    h1,h2 {
+      line-height:5px;
+      font-family:"Verdana";
+    }
+    .a4 {
+      position: absolute;
+      top:0;
+    }
+    .a1 {
+      font-size:50;
+    }
+  </style>
 </head>
 <body>
-  <h1 class="currname">{{Name}}</h1>
+  <div id="bodycontent" class="currname"></div>
+    <script src="../static/tchrjs.js"></script>
 </body>
